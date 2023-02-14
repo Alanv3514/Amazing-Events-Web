@@ -1,0 +1,23 @@
+*{
+    /* outline: solid; */
+}
+
+
+
+/*  */
+.navbar-brand>img{
+    width: 25vh;
+}
+
+.bar2 img
+{
+    width: 32px;
+}
+/*  */
+
+
+
+/* FOOTER */
+.footer_icons>img{
+    width: 32px;
+}
