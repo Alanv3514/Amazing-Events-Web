@@ -1,3 +1,8 @@
+.root{
+    --magenta: #CB3A87;
+    --color2:#F5E5FF;
+}
+
 *{
     /* outline: solid; */
 }
@@ -20,4 +25,9 @@
 /* FOOTER */
 .footer_icons>img{
     width: 32px;
+}
+
+.card>img, .card-body>div>a{
+    -webkit-box-shadow: -8px -6px 5px 0px rgba(0,0,0,0.18); 
+box-shadow: -8px -6px 5px 0px rgba(0,0,0,0.18);;
 }
