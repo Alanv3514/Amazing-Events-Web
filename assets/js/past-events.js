@@ -12,10 +12,7 @@ console.log(data)
         if (eventDate < currentDate) {
             console.log("evento pasado")
             printcard(event.image,event.name,event.description,event.price)
-        } else {
-            console.log("evento futuro")
         }
-
     }
     tarjetap= document.getElementById('cardp')
     tarjetap.innerHTML=htmlEvents;
