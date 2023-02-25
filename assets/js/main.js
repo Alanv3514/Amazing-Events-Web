@@ -9,10 +9,7 @@ console.log(data)
         let eventDate = new Date(event.date);
         printcard(event.image,event.name,event.description,event.price)
     }
-    tarjetai= document.getElementById('cardi')
     tarjetai.innerHTML=htmlEvents;
 }
 
 )
-
-

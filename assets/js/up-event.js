@@ -12,7 +12,6 @@ console.log(data)
             printcard(event.image,event.name,event.description,event.price)
         } 
     }
-    tarjetau= document.getElementById('cardu')
     tarjetau.innerHTML=htmlEvents;
 }
 
