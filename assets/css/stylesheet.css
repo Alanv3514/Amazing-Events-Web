@@ -44,10 +44,6 @@ footer>div>img:hover, .bar_button:hover {
     transition: transform 0.2s ease-in-out;
 }
 
-.btn:hover{
-
-}
-
 .active, h2, footer{
     color: #cf0368 !important;
 }
