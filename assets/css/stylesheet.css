@@ -1,6 +1,8 @@
 .root{
     --magenta: #CB3A87;
     --color2:#F5E5FF;
+    --color3:#cf0368;
+    --button:    #bc0394;
 }
 
 *{
@@ -29,5 +31,26 @@
 
 .card>img, .card-body>div>a{
     -webkit-box-shadow: -8px -6px 5px 0px rgba(0,0,0,0.18); 
-box-shadow: -8px -6px 5px 0px rgba(0,0,0,0.18);;
+box-shadow: -8px -6px 5px 0px rgba(0,0,0,0.18);
 }
+
+footer>div>img {
+    width: 60px;
+    margin: 0 1px 0 1px;
+}
+
+footer>div>img:hover, .bar_button:hover {
+    transform: scale(1.2);
+    transition: transform 0.2s ease-in-out;
+}
+
+.active, h2, footer{
+    color: #cf0368 !important;
+}
+
+.btn{
+    background-color: #bc0394 !important;
+    border-color: #bc0394 !important;
+}
+
+
