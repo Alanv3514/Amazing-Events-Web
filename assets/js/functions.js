@@ -1,7 +1,6 @@
 
-function printcard (image, name, description, price )
-{
-htmlEvents +=     `<div class="col-12 col-md-6 col-lg-3" >
+function generateCardss(image, name, description, price) {
+    htmlEvents += `<div class="col-12 col-md-6 col-lg-3" >
 <div class="card h-100 m-4 m-md-0 m-lg-0" >
 <img src="${image}" height="180" class="m-2" alt=""> 
     <div class="card-body d-flex flex-column align-items-center justify-content-between">
@@ -14,4 +13,36 @@ htmlEvents +=     `<div class="col-12 col-md-6 col-lg-3" >
     </div>
 </div>
 </div>`;
+};
+
+
+
+const searchInput = document.getElementById('search-input');
+const searchButton = document.getElementById('search-button');
+const cardContainer = document.getElementById('cardi');
+
+// Función para filtrar las tarjetas según el nombre ingresado
+function filterCards() {
+    const searchValue = searchInput.value.toLowerCase();
+    const cards = cardContainer.querySelectorAll('.card');
+    cards.forEach(card => {
+        const name = card.querySelector('.card-title').textContent.toLowerCase();
+        if (name.includes(searchValue)) {
+            card.style.display = 'flex';
+        } else {
+            card.style.display = 'none';
+        }
+    });
 }
+
+// Evento de clic en el botón de búsqueda
+searchButton.addEventListener('click', filterCards);
+
+// Evento de cambio en el input de búsqueda
+// searchInput.addEventListener('input', filterCards);
+
+
+
+
+
+
