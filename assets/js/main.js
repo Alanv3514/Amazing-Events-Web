@@ -1,4 +1,7 @@
-const categories = new Set();
+
+let categorias =[];
+let categoriasHtml="";
+let categoriesContainer=  document.getElementById("chkCategories")
 
     fetch(datajson)
 
@@ -11,14 +14,23 @@ const categories = new Set();
             let eventDate = new Date(event.date);
             generateCardss(event.image, event.name, event.description, event.price);
 
-            categories.add(event.category);
-
+            if(!categorias.includes(event.category)){
+                    categorias.push(event.category)
+                    categoriasHtml +=`<li class="nav-item">
+                    <label><input type="checkbox" id="${event.category}" value="${event.category}"> ${event.category}</label>
+                </li>`
+                    };
         };
+        console.log(categorias);
         tarjetai.innerHTML = htmlEvents;
+        categoriesContainer.innerHTML=categoriasHtml;
 
-        const categoriesArray = Array.from(categories);
 
 
     })
+
+
+
+
 
 

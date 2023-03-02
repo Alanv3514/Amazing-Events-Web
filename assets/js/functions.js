@@ -21,25 +21,23 @@ const searchInput = document.getElementById('search-input');
 const searchButton = document.getElementById('search-button');
 const cardContainer = document.getElementById('cardi');
 
-// Función para filtrar las tarjetas según el nombre ingresado
 function filterCards() {
     const searchValue = searchInput.value.toLowerCase();
     const cards = cardContainer.querySelectorAll('.card');
     cards.forEach(card => {
         const name = card.querySelector('.card-title').textContent.toLowerCase();
         if (name.includes(searchValue)) {
-            card.style.display = 'flex';
+            card.parentElement.classList.remove("oculto");
+            card.classList.remove("oculto");
         } else {
-            card.style.display = 'none';
+            card.parentElement.classList.add("oculto")
+            card.classList.add("oculto")
         }
     });
 }
 
-// Evento de clic en el botón de búsqueda
 searchButton.addEventListener('click', filterCards);
-
-// Evento de cambio en el input de búsqueda
-// searchInput.addEventListener('input', filterCards);
+searchInput.addEventListener('input', filterCards);
 
 
 

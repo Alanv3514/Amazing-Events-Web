@@ -5,9 +5,7 @@
     --button:    #bc0394;
 }
 
-*{
-    /* outline: solid; */
-}
+
 
 
 
@@ -53,4 +51,9 @@ footer>div>img:hover, .bar_button:hover {
     border-color: #bc0394 !important;
 }
 
+
+.oculto{
+    display: none;
+    width: 0;
+}
 
