@@ -57,3 +57,7 @@ footer>div>img:hover, .bar_button:hover {
     width: 0;
 }
 
+#hidden-info{
+    display: none;
+    visibility: hidden;
+}
