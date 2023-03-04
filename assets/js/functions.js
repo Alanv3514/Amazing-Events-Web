@@ -13,7 +13,7 @@ function saveCategoriesHtml(category) {
 
 }
 
-function generateCards(image, name, description, price, category) {
+function generateCards(id, image, name, description, price, category) {
     htmlEvents += `<div class="col-12 col-md-6 col-lg-3"  >
     <div class="card h-100 m-4 m-md-0 m-lg-0 " data-category="${category}">
     <img src="${image}" height="180" class="m-2" alt=""> 
@@ -22,11 +22,9 @@ function generateCards(image, name, description, price, category) {
             <p class="card-text">${description}</p>
             <div class="d-flex w-75 gap-3 justify-content-between">
                 <p>Price: $${price}</p>
-                <a href="./details.html" class="btn btn-primary ">Ver Mas</a>
+                <a href="./details.html?id=${id}" class="btn btn-primary">Details</a>
             </div>
         </div>
     </div>
     </div>`;
 };
-
-

@@ -7,4 +7,4 @@ const cardContainer = document.getElementById('cardC');
 let htmlEvents = "";
 let categoriasHtml="";
 let categorias =[];
-let flag = false;
+
