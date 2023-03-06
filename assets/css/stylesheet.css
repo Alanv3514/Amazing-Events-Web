@@ -27,7 +27,7 @@
     width: 32px;
 }
 
-.card>img, .card-body>div>a{
+ .card-body>div>a{
     -webkit-box-shadow: -8px -6px 5px 0px rgba(0,0,0,0.18); 
 box-shadow: -8px -6px 5px 0px rgba(0,0,0,0.18);
 }
@@ -69,5 +69,25 @@ footer>div>img:hover, .bar_button:hover {
         font-size: small;
         height: 40px !important;
     }
+
+}
+
+
+
+
+@media (max-width:767px){
+    #cardD>div{
+        -webkit-box-shadow: -8px -6px 5px 0px rgba(0,0,0,0.18)!important; 
+        box-shadow: -8px -6px 5px 0px rgba(0,0,0,0.18) !important;
+    }
+
+}
+
+@media (min-width:768px) {
+    .card>img{
+        -webkit-box-shadow: -8px -6px 5px 0px rgba(0,0,0,0.18); 
+    box-shadow: -8px -6px 5px 0px rgba(0,0,0,0.18);
+    }
+
 
 }

@@ -22,7 +22,7 @@ function generateCards(id, image, name, description, price, category) {
             <p class="card-text">${description}</p>
             <div class="d-flex w-75 gap-3 justify-content-between">
                 <p>Price: $${price}</p>
-                <a href="./details.html?id=${id}" class="btn btn-primary">Details</a>
+                <a href="./details.html?id=${id}" class="btn btn-primary ">Details</a>
             </div>
         </div>
     </div>
