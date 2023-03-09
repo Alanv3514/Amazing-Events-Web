@@ -1,10 +1,4 @@
 //funcion que recibiendo una categoria pushea en un array las NO repetidas y retorna un str con los elementos del dom que las representan
-
-/**
- * 
- * @param {*} category 
- * @returns 
- */
 function saveCategoriesHtml(category) {
     let catHtml= ``;
     if (!categorias.includes(category)) {
@@ -15,16 +9,8 @@ function saveCategoriesHtml(category) {
     }
     return catHtml;
 }
-/**
- * funcion que recibiendo una los parametros correspondientes y retorna un str con los elementos del dom que representan las tarjetas
- * @param {*} id  id de la card
- * @param {*} image imagen de la card
- * @param {*} name nombre de la card
- * @param {*} description descripcion de la card
- * @param {*} price precio de la card
- * @param {*} category categoria de la card
- * @returns retorna un string con los elementos que representan las tarjetas
- */
+
+//funcion que recibiendo una los parametros correspondientes y retorna un str con los elementos del dom que representan las tarjetas
 //notese que `data-category="${category}" ` nos permite guardar informacion dentro de etiquetas
 function generateCards(id, image, name, description, price, category) {
     return `<div class="col-12 col-md-6 col-lg-3"  >
@@ -42,12 +28,7 @@ function generateCards(id, image, name, description, price, category) {
     </div>`;
 };
 
-/**
- * funcion que recibiendo un evento retorna un str con los elementos del dom que representan una tarjeta Details
- * @param {*} event
- * @returns 
- */
-
+//funcion que recibiendo los paramentros correspondientes retorna un str con los elementos del dom que representan una tarjeta Details
 function detailsCard(event) {
     return `<div class="card flex-md-row flex-lg-row" data-category="${event.category}">
     <img src="${event.image}"  class="border m-md-3 me-md-1 col-md-6 m-lg-3 me-lg-1 col-lg-6" alt="cinema">

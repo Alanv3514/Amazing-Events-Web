@@ -54,6 +54,7 @@ footer>div>img:hover, .bar_button:hover {
 }
 
 
+
 @media (max-width:500px){
     #cardD>.card>img{
         height: 200px !important;
