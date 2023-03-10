@@ -1,8 +1,11 @@
-const categoriesContainer=  document.getElementById("chkCategories"); // obtenemos el container para nuestros checkboxes
-const searchInput = document.getElementById('search-input');//obtenemos el input de texto para el filtro buscador
-const searchButton = document.getElementById('search-button');//obtenemos el input de boton para el filtro 
-const cardContainer = document.getElementById('cardC');//obtenemos el container para las cards
-let currentDate = new Date(data.currentDate);//guardamos la fecha actual del data
+let categoriesContainer;// declaramos el container para nuestros checkboxes
+let searchInput;//declaramos el input de texto para el filtro buscador
+let searchButton;//declaramos el input de boton para el filtro 
+let cardContainer; //declaramos el container para las cards
+let currentDate;//declaramos la fecha actual del data
+let searchCategory;//declaramos los elementos del dom que corresponden a los checkboxes
+let msg; //declaramos el elemento del dom que corresponde a un mensaje predeterminado
+const datajson = 'https://mindhub-xj03.onrender.com/api/amazing';
 let htmlEvents = ""; //creamos una variable auxiliar.
 let categoriasHtml="";//creamos una variable auxiliar.
 let categorias =[];//creamos un array para guardar las categorias.

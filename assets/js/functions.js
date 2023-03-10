@@ -1,10 +1,6 @@
 //funcion que recibiendo una categoria pushea en un array las NO repetidas y retorna un str con los elementos del dom que las representan
 
-/**
- * 
- * @param {*} category 
- * @returns 
- */
+
 function saveCategoriesHtml(category) {
     let catHtml= ``;
     if (!categorias.includes(category)) {
@@ -15,6 +11,7 @@ function saveCategoriesHtml(category) {
     }
     return catHtml;
 }
+
 /**
  * funcion que recibiendo una los parametros correspondientes y retorna un str con los elementos del dom que representan las tarjetas
  * @param {*} id  id de la card

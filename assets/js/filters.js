@@ -1,5 +1,4 @@
-let searchCategory = document.querySelectorAll("input[type='checkbox']")//obtenemos los elementos del dom que corresponden a los checkboxes
-let msg = document.getElementById('voidMsg');//obtenemos el elemento del dom que corresponde a un mensaje predeterminado
+
 
 //Funcion filtrar tarjetas
 function filterCards() {
@@ -27,12 +26,16 @@ function filterCards() {
             show = true;//si encuentro coincidencia, la tarjeta se debe mostrar
         } else {
             show = false;//si no encuentro coincidencia, la tarjeta se debe ocultar
-            longCards--;//disminuyo en 1 el contador de tarjetas
+            
         }
 
         //evaluamos el filtro de checkboxes teniendo en cuenta que esten seleccionados al menos 1 
         if (selectedCategories.length > 0 && !selectedCategories.includes(category)) {
             show = false;//si no encuentro coincidencia entre la categoria de la tarjeta y las categorias marcadas, oculto la tarjeta
+        }
+
+        if(!show){//compruebo si efectivamente se oculto el mensaje
+            longCards--;//disminuyo en 1 el contador de tarjetas
         }
 
         //evaluo si todas las tarjetas quedaron ocultas
@@ -49,11 +52,4 @@ function filterCards() {
 }
 
 
-//declaramos los listeners
-searchButton.addEventListener('click', filterCards);
-searchInput.addEventListener('input', filterCards);
-
-for (let checkbox of searchCategory) {
-    checkbox.addEventListener('change',filterCards)//asignamos un listener a cada checkbox
-}
 
