@@ -27,7 +27,7 @@ function filterCards() {
             show = true;//si encuentro coincidencia, la tarjeta se debe mostrar
         } else {
             show = false;//si no encuentro coincidencia, la tarjeta se debe ocultar
-            longCards--;//disminuyo en 1 el contador de tarjetas
+
         }
 
         //evaluamos el filtro de checkboxes teniendo en cuenta que esten seleccionados al menos 1 
@@ -35,6 +35,9 @@ function filterCards() {
             show = false;//si no encuentro coincidencia entre la categoria de la tarjeta y las categorias marcadas, oculto la tarjeta
         }
 
+        if(!show){//compruebo si efectivamente se oculto la carta
+            longCards--;//disminuyo en 1 el contador de tarjetas
+        }
         //evaluo si todas las tarjetas quedaron ocultas
         if(longCards<=0){
             msg.classList.remove("oculto");//si oculte todas las tarjetas, debo mostrar el mensaje de "no se han encontrado coincidencias"
