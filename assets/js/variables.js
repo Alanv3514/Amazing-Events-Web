@@ -5,6 +5,7 @@ let cardContainer; //declaramos el container para las cards
 let currentDate;//declaramos la fecha actual del data
 let searchCategory;//declaramos los elementos del dom que corresponden a los checkboxes
 let msg; //declaramos el elemento del dom que corresponde a un mensaje predeterminado
+let tr2, tr3, tr4;
 const datajson = 'https://mindhub-xj03.onrender.com/api/amazing';
 let htmlEvents = ""; //creamos una variable auxiliar.
 let categoriasHtml="";//creamos una variable auxiliar.
