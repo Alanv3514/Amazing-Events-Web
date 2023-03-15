@@ -64,8 +64,6 @@ function statsByCat(eventArray,event, MontoRecaudado, Asistencias, Capacity) {
     }
 }
 
-
-
 /**
  * Funcion que rellena HAevent y LAevent en base al array de eventos que le pasemos
  * @param {*} HAevent array de eventos con mayor asistencias
