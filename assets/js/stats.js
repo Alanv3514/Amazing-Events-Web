@@ -1,11 +1,10 @@
 //Declaracion de variables a utilizar
-let allEvents = []; //Guardaremos todos los eventos para manipular su orden mas adelante
 let pasCatStats = []; //Guardaremos informacion sobre las Categorias de eventos pasados
 let futCatStats = [];//Guardaremos informacion sobre las Categorias de eventos futuros
 let HAevent = []; //Guardaremos informacion sobre la mayor asistencia a eventos
 let LAevent = []; //Guardaremos informacion sobre la menor asistencia a eventos
 let htmlTable = ``; //String donde crearemos nuestra tabla antes de inyectarla al html
-let pastEvents = [];
+let pastEvents =[];
 fetch(datajson)
     .then(response => { return response.json() })
     .then(data => {
@@ -16,24 +15,23 @@ fetch(datajson)
                 event.assistance = event.estimate; //agrego la propiedad assistance igual a estimate para evitar problemas futuros de calculo
                 let MontoRecaudado = event.price * event.estimate;//calculo el monto recaudado por el evento
                 statsByCat(futCatStats, event, MontoRecaudado, event.estimate, event.capacity);// Lleno futCatFiltrados
-                event.pattendance = (event.assistance / event.capacity * 100);
+                event.pattendance = (event.assistance / event.capacity * 100);//Agrego la propiedad pattendance (Porcentaje de asistencia) al evento
+            
             }
             else {
-                
                 event.estimate = event.assistance;//agrego la propiedad estimate igual a assistance para evitar problemas futuros de calculo
                 let MontoRecaudado = event.price * event.assistance;//calculo el monto recaudado por el evento
                 statsByCat(pasCatStats, event, MontoRecaudado, event.assistance, event.capacity);//LLeno pasCatFiltrados
-                event.pattendance = (event.assistance / event.capacity * 100);
+                event.pattendance = (event.assistance / event.capacity * 100);//Agrego la propiedad pattendance (Porcentaje de asistencia) al evento
                 pastEvents.push(event);
             }
-            //Agrego la propiedad pattendance (Porcentaje de asistencia) al evento
             
-            allEvents.push(event);//guardo el evento en un array
         }
         assistancesLogic(HAevent, LAevent, pastEvents);//LLeno tanto LAevent como HAevent. 
         htmlTable= makeTable(HAevent, LAevent, pastEvents);//Creo el String con la tabla
         let tablita = document.getElementById("table-Stats");//capturo el elemento que representa mi tabla
         tablita.innerHTML = htmlTable;//inyecto el html en el dom
+
     });
 
 /**
@@ -64,11 +62,13 @@ function statsByCat(eventArray,event, MontoRecaudado, Asistencias, Capacity) {
     }
 }
 
+
+
 /**
  * Funcion que rellena HAevent y LAevent en base al array de eventos que le pasemos
  * @param {*} HAevent array de eventos con mayor asistencias
  * @param {*} LAevent array de eventos con menor asistencias
- * @param {*} allEvents array con todos los eventos
+ * @param {*} allEvents array con todos los eventos a evaluar
  */
 function assistancesLogic(HAevent, LAevent, allEvents) {
 
@@ -89,7 +89,7 @@ function assistancesLogic(HAevent, LAevent, allEvents) {
  * Funcion que crea una tabla en funcion e los array de eventos que le pasemos
  * @param {*} HAevent array de eventos con mayor asistencias
  * @param {*} LAevent array de eventos con menor asistencias
- * @param {*} allEvents array con todos los eventos
+ * @param {*} allEvents array con todos los eventos a evaluar
  * @returns retorna un String con la Tabla creada
  */
 function makeTable(HAevent, LAevent, allEvents) {
@@ -155,7 +155,7 @@ function CatStatisticsTable(CatStats){
  * Funcion que crea las <tr></tr> de los Porcentajes de Asistencias
  * @param {*} HAevent array de eventos con mayor asistencias
  * @param {*} LAevent array de eventos con menor asistencias
- * @param {*} allEvents array con todos los eventos
+ * @param {*} allEvents array con todos los eventos a evaluar
  * @returns retorna un String con el html correspondiente a su insercion en una tabla
  */
 function HAStatsTable (HAevent, LAevent, allEvents){
