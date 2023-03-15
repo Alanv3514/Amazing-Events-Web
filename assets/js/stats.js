@@ -1,50 +1,46 @@
-let mayorAsistencia;
-let menorAsistencia;
-let mayorCapacidad;
-let allEvents = [];
-let eventoPasado = [];
-let eventoFuturo = [];
-let pasCatFiltrados = [];
-let futCatFiltrados = [];
-let UHAevent = [{ name: "blank", assistance: 0, estimate: 0, capacity: 1 }];
-let ULAevent = [{ name: "blank", assistance: 1, estimate: 1, capacity: 1 }];
-let PHAevent = [{ name: "blank", assistance: 0, estimate: 0, capacity: 1 }];
-let PLAevent = [{ name: "blank", assistance: 1, estimate: 1, capacity: 1 }];
+//Declaracion de variables a utilizar
+let allEvents = []; //Guardaremos todos los eventos para manipular su orden mas adelante
+let pasCatStats = []; //Guardaremos informacion sobre las Categorias de eventos pasados
+let futCatStats = [];//Guardaremos informacion sobre las Categorias de eventos futuros
+let HAevent = []; //Guardaremos informacion sobre la mayor asistencia a eventos
+let LAevent = []; //Guardaremos informacion sobre la menor asistencia a eventos
+let htmlTable = ``; //String donde crearemos nuestra tabla antes de inyectarla al html
 
-let AttendanceHtml = ``;
-let UpStatsHtml = ``;
-let PastStatsHtml = ``;
-let htmlTable = ``;
 fetch(datajson)
     .then(response => { return response.json() })
     .then(data => {
-
         for (let event of data.events) {
             let eventDate = new Date(event.date);
             currentDate = new Date(data.currentDate);
-            allEvents.push(event)
-            logicCategoria(currentDate, eventDate, event)
+            if (eventDate > currentDate) {//si es un evento Futuro
+                event.assistance = event.estimate; //agrego la propiedad assistance igual a estimate para evitar problemas futuros de calculo
+                let MontoRecaudado = event.price * event.estimate;//calculo el monto recaudado por el evento
+                statsByCat(futCatStats, event, MontoRecaudado, event.estimate, event.capacity);// Lleno futCatFiltrados
+            }
+            else {
+                event.estimate = event.assistance;//agrego la propiedad estimate igual a assistance para evitar problemas futuros de calculo
+                let MontoRecaudado = event.price * event.assistance;//calculo el monto recaudado por el evento
+                statsByCat(pasCatStats, event, MontoRecaudado, event.assistance, event.capacity);//LLeno pasCatFiltrados
+            }
+            event.pattendance = (event.assistance / event.capacity * 100);//Agrego la propiedad pattendance (Porcentaje de asistencia) al evento
+            allEvents.push(event);//guardo el evento en un array
         }
-        allEvents.sort(function(a,b){return b.capacity-a.capacity;})
+        assistancesLogic(HAevent, LAevent, allEvents);//LLeno tanto LAevent como HAevent. 
+        htmlTable= makeTable(HAevent, LAevent, allEvents);//Creo el String con la tabla
+        let tablita = document.getElementById("table-Stats");//capturo el elemento que representa mi tabla
+        tablita.innerHTML = htmlTable;//inyecto el html en el dom
 
-        makeTable()
-
-        let tablita = document.getElementsByClassName('table-responsive')
-        tablita[0].innerHTML = htmlTable
-
-        console.log(UHAevent)
-        console.log(ULAevent)
-        console.log(PLAevent)
-        console.log(PHAevent)
-
-        console.log(eventoPasado)
-        console.log(eventoFuturo)
-
-        console.log(pasCatFiltrados)
-        console.log(futCatFiltrados)
     });
 
-function guardarCategoria(event, eventArray, MontoRecaudado, AsistenciasCat, CapacityCat) {
+/**
+ * Funcion que dandole los siguientes parametros nos rellena el array de eventos con las estadisticas de la categoria correspondiente al evento en cuestion.
+ * @param {*} event evento que queremos evaluar
+ * @param {*} eventArray array de eventos que queremos revisar y modificar
+ * @param {*} MontoRecaudado monto recaudado por el evento que queremos evaluar
+ * @param {*} Asistencias cantidad de asistencias al evento
+ * @param {*} Capacity capacidad del evento
+ */
+function statsByCat(eventArray,event, MontoRecaudado, Asistencias, Capacity) {
     var index = eventArray.findIndex(function (obj) {
         return obj.nameCat === event.category;
     });
@@ -53,74 +49,50 @@ function guardarCategoria(event, eventArray, MontoRecaudado, AsistenciasCat, Cap
         eventArray.push({
             nameCat: event.category,
             recaudado: MontoRecaudado,
-            asistencias: AsistenciasCat,
-            capacity: CapacityCat,
+            asistencias: Asistencias,
+            capacity: Capacity,
         });
     }
     else {
         eventArray[index].recaudado += MontoRecaudado;
-        eventArray[index].asistencias += AsistenciasCat;
-        eventArray[index].capacity += CapacityCat;
+        eventArray[index].asistencias += Asistencias;
+        eventArray[index].capacity += Capacity;
     }
 }
 
 
 
-function logicCategoria(currentDate, eventDate, event) {
-    if (currentDate < eventDate) {
-        eventoPasado.push(event)
-        let MontoRecaudado = event.price * event.estimate
-        guardarCategoria(event, futCatFiltrados, MontoRecaudado, event.estimate, event.capacity)
+/**
+ * Funcion que rellena HAevent y LAevent en base al array de eventos que le pasemos
+ * @param {*} HAevent array de eventos con mayor asistencias
+ * @param {*} LAevent array de eventos con menor asistencias
+ * @param {*} allEvents array con todos los eventos
+ */
+function assistancesLogic(HAevent, LAevent, allEvents) {
 
-        if ((UHAevent[0].estimate / UHAevent[0].capacity) == (event.estimate / event.capacity)) {
-            UHAevent.unshift(event);
-
-        }
-        else if ((UHAevent[0].estimate / UHAevent[0].capacity) < (event.estimate / event.capacity)) {
-            UHAevent = [];
-            UHAevent.unshift(event);
-        }
-
-        if ((ULAevent[0].estimate / ULAevent[0].capacity) == (event.estimate / event.capacity)) {
-            ULAevent.unshift(event);
-        }
-        else if ((ULAevent[0].estimate / ULAevent[0].capacity) > (event.estimate / event.capacity)) {
-            ULAevent = [];
-            ULAevent.unshift(event);
-        }
+    allEvents.sort(function (a, b) { return b.pattendance - a.pattendance; })
+    for (i = 0; i < allEvents.length / 4; i++) {
+        HAevent.push(allEvents[i]);
     }
-    else {
-        eventoFuturo.push(event)
-        let MontoRecaudado = event.price * event.assistance
-        guardarCategoria(event, pasCatFiltrados, MontoRecaudado, event.assistance, event.capacity)
 
-        if ((PHAevent[0].assistance / PHAevent[0].capacity) == (event.assistance / event.capacity)) {
-            PHAevent.unshift(event);
-
-        }
-        else if ((PHAevent[0].assistance / PHAevent[0].capacity) < (event.assistance / event.capacity)) {
-            PHAevent = [];
-            PHAevent.unshift(event);
-        }
-
-        if ((PLAevent[0].assistance / PLAevent[0].capacity) == (event.assistance / event.capacity)) {
-            PLAevent.unshift(event);
-        }
-        else if ((PLAevent[0].assistance / PLAevent[0].capacity) > (event.assistance / event.capacity)) {
-            PLAevent = [];
-            PLAevent.unshift(event);
-        }
-
+    allEvents.sort(function (a, b) { return a.pattendance - b.pattendance; })
+    for (i = 0; i < allEvents.length / 4; i++) {
+        LAevent.push(allEvents[i]);
     }
+
 }
 
-function sortCapacity() { }
 
-
-
-function makeTable() {
-
-    htmlTable = `<div class="table-responsive pt-lg-5 pb-lg-5 pe-lg-5 ps-lg-2 me-lg-5 ms-lg-5">
+/**
+ * Funcion que crea una tabla en funcion e los array de eventos que le pasemos
+ * @param {*} HAevent array de eventos con mayor asistencias
+ * @param {*} LAevent array de eventos con menor asistencias
+ * @param {*} allEvents array con todos los eventos
+ * @returns retorna un String con la Tabla creada
+ */
+function makeTable(HAevent, LAevent, allEvents) {
+    let Table=``;
+    Table = `<div class="table-responsive pt-lg-5 pb-lg-5 pe-lg-5 ps-lg-2 me-lg-5 ms-lg-5">
             <table class="table table-bordered border-dark ">
                 <thead>
                     <tr>
@@ -133,35 +105,8 @@ function makeTable() {
                         <th>Events with the lowest percentage of attendance</th>
                         <th>Events with larger capacity</th>
                     </tr>`
-                    for (i = 0; i < Math.max(PHAevent.length, PLAevent.length); i++) {
-                        const PLAeventPercent = PLAevent.hasOwnProperty(i) ? ` : ${PLAevent[i].assistance / PLAevent[i].capacity * 100}%` : '';
-                        const PHAeventPercent = PHAevent.hasOwnProperty(i) ? ` : ${PHAevent[i].assistance / PHAevent[i].capacity * 100}%` : '';
-                        const PHAeventName = PHAevent.hasOwnProperty(i) ? `${PHAevent[i].name}${PHAeventPercent} ` : '';
-                        const PLAeventName = PLAevent.hasOwnProperty(i) ? `${PLAevent[i].name}${PLAeventPercent} ` : '';
-                        htmlTable += `<tr>
-                                          <td>${PHAeventName}</td>
-                                          <td>${PLAeventName}</td>
-                                          <td>${allEvents[i].name} : ${allEvents[i].capacity} </td>
-                                        </tr>`;
-                    }
-    for (i = 0; i < Math.max(UHAevent.length, ULAevent.length); i++) {
-        const ULAeventPercent = ULAevent.hasOwnProperty(i) ? ` : ${ULAevent[i].estimate / ULAevent[i].capacity * 100}%` : '';
-        const UHAeventPercent = UHAevent.hasOwnProperty(i) ? ` : ${UHAevent[i].estimate / UHAevent[i].capacity * 100}%` : '';
-        const UHAeventName = UHAevent.hasOwnProperty(i) ? `${UHAevent[i].name}${UHAeventPercent} ` : '';
-        const ULAeventName = ULAevent.hasOwnProperty(i) ? `${ULAevent[i].name}${ULAeventPercent} ` : '';
-
-        htmlTable += `<tr>
-                                          <td>${UHAeventName}</td>
-                                          <td>${ULAeventName}</td>
-                                          <td>${allEvents[i+Math.max(PHAevent.length, PLAevent.length)].name} : ${allEvents[i+Math.max(PHAevent.length, PLAevent.length)].capacity}</td>
-                                        </tr>`;
-    }
-
-
-
-
-
-    htmlTable += `<tr>
+          Table += HAStatsTable (HAevent, LAevent, allEvents);
+          Table += `<tr>
                         <th class="bg-body-secondary" colspan="3">Upcoming events statistics by category</th>
                     </tr>
                     <tr >
@@ -169,17 +114,8 @@ function makeTable() {
                         <th>Revenues</th>
                         <th>Percentage of attendance</th>
                     </tr>`
-
-    for (i = 0; ((i < pasCatFiltrados.length)); i++) {
-        let percent = ((pasCatFiltrados[i].asistencias) / (pasCatFiltrados[i].capacity) * 100)
-        htmlTable += `<tr >
-                        <td>${pasCatFiltrados[i].nameCat}</td>
-                        <td>$${pasCatFiltrados[i].recaudado}</td>
-                        <td>${percent.toFixed(2)}%</td>
-                    </tr>`
-    }
-
-    htmlTable += `<tr>
+          Table += CatStatisticsTable(pasCatStats);
+          Table += `<tr>
                         <th class="bg-body-secondary" colspan="3">Past events statistics by category</th>
                     </tr>
                     <tr >
@@ -187,17 +123,52 @@ function makeTable() {
                         <th>Revenues</tg>
                         <th>Percentage of attendance</th>
                     </tr>`
-    for (i = 0; ((i < futCatFiltrados.length)); i++) {
-        let percent = ((futCatFiltrados[i].asistencias) / (futCatFiltrados[i].capacity) * 100)
+    Table += CatStatisticsTable(futCatStats);
+    Table += `</tbody>
+            </table>
+        </div>`
+        return Table;
+}
 
-        htmlTable += `<tr>
-                        <td>${futCatFiltrados[i].nameCat}</td>
-                        <td>$${futCatFiltrados[i].recaudado}</td>
+/**
+ * Funcion que crea las <tr></tr> de las estadisticas de categorias
+ * @param {*} CatFiltrados Array de stadisticas de categorias
+ * @returns retorna un String con el html correspondiente a su insercion en una tabla
+ */
+function CatStatisticsTable(CatStats){
+    let trHtml=``;
+    for (i = 0; ((i < CatStats.length)); i++) {
+        let percent = ((CatStats[i].asistencias) / (CatStats[i].capacity) * 100)
+        trHtml+= `<tr>
+                        <td>${CatStats[i].nameCat}</td>
+                        <td>$${CatStats[i].recaudado}</td>
                         <td>${percent.toFixed(2)}%</td>
                     </tr>`
     }
-    `
-                </tbody>
-            </table>
-        </div>`
+    return trHtml;
+}
+
+
+/**
+ * Funcion que crea las <tr></tr> de los Porcentajes de Asistencias
+ * @param {*} HAevent array de eventos con mayor asistencias
+ * @param {*} LAevent array de eventos con menor asistencias
+ * @param {*} allEvents array con todos los eventos
+ * @returns retorna un String con el html correspondiente a su insercion en una tabla
+ */
+function HAStatsTable (HAevent, LAevent, allEvents){
+    let HAStatsHtml=``;
+    allEvents.sort(function (a, b) { return b.capacity - a.capacity; });
+    for (i = 0; i < Math.max(HAevent.length, LAevent.length); i++) {
+        const LAeventPercent = LAevent.hasOwnProperty(i) ? ` : ${(LAevent[i].assistance / LAevent[i].capacity * 100).toFixed(2)}%` : '';
+        const HAeventPercent = HAevent.hasOwnProperty(i) ? ` : ${(HAevent[i].assistance / HAevent[i].capacity * 100).toFixed(2)}%` : '';
+        const HAeventName = HAevent.hasOwnProperty(i) ? `${HAevent[i].name}${HAeventPercent} ` : '';
+        const LAeventName = LAevent.hasOwnProperty(i) ? `${LAevent[i].name}${LAeventPercent} ` : '';
+        HAStatsHtml += `<tr>
+                            <td>${HAeventName}</td>
+                            <td>${LAeventName}</td>
+                            <td>${allEvents[i].name} : ${allEvents[i].capacity} </td>
+                        </tr>`;
+    }
+    return HAStatsHtml;
 }
