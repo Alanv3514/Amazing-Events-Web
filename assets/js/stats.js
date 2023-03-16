@@ -37,14 +37,14 @@ const app = createApp({
                             event.estimate = event.assistance;
                             event.pattendance = (event.assistance / event.capacity * 100);
                             let MontoRecaudado = event.price * event.assistance;//calculo el monto recaudado por el evento
-                            this.statsByCat(this.pastCatStats, event, MontoRecaudado, event.assistance, event.capacity);
+                            this.statsByCat(this.pastCatStats, event, MontoRecaudado, event.assistance, event.capacity, event.pattendance);
                             
                         }
                         else {
                             event.assistance = event.estimate;
                             event.pattendance = (event.assistance / event.capacity * 100);
                             let MontoRecaudado = event.price * event.assistance;//calculo el monto recaudado por el evento
-                            this.statsByCat(this.futCatStats, event, MontoRecaudado, event.assistance, event.capacity);
+                            this.statsByCat(this.futCatStats, event, MontoRecaudado, event.assistance, event.capacity, event.pattendance);
                         }
                         this.eventos.push(event);
                     };
@@ -53,7 +53,7 @@ const app = createApp({
                 .catch(error => console.log(error.message))
         },
 
-        statsByCat(eventArray,event, MontoRecaudado, Asistencias, Capacity) {
+        statsByCat(eventArray,event, MontoRecaudado, Asistencias, Capacity, pattendance) {
             var index = eventArray.findIndex(function (obj) {
                 return obj.nameCat === event.category;
             });
@@ -64,7 +64,7 @@ const app = createApp({
                     recaudado: MontoRecaudado,
                     asistencias: Asistencias,
                     capacity: Capacity,
-                    pAsistencias: (Capacity/Asistencias *100),
+                    pAsistencias: pattendance,
                 });
             }
             else {
