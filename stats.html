@@ -10,6 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 <body class="m-2 border">
+    <div id="app">
     <header>
         <div class="bar">
             <nav class="navbar navbar-expand-lg bg-body-secondary border-bottom">
@@ -71,39 +72,10 @@
                         <th>Events with the lowest percentage of attendance</th>
                         <th>Events with larger capacity</th>
                     </tr>
-                    <tr class="TableRow-1">
-                        <td>                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
-                        <td>                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
-                        <td >                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
-                    </tr>
-                    <tr >
-                        <td >                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
-                        <td>                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
-                        <td>                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
+                    <tr v-for="i in repetitions">
+                        <td >{{HAevent[i].name}} : {{HAevent[i].pattendance.toFixed(2)}}%</td>
+                        <td >{{LAevent[i].name}} : {{LAevent[i].pattendance.toFixed(2)}}%</td>
+                        <td >{{eventos[i].name}} : {{eventos[i].capacity}}</td>
                     </tr>
                     <tr>
                         <th class="bg-body-secondary" colspan="3">Upcoming events statistics by category</th>
@@ -113,39 +85,10 @@
                         <th>Revenues</th>
                         <th>Percentage of attendance</th>
                     </tr>
-                    <tr >
-                        <td>                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
-                        <td>                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
-                        <td>                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
-                    </tr>
-                    <tr >
-                        <td>                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
-                        <td>                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
-                        <td>                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
+                    <tr v-for="cat of futCatStats">
+                        <td >{{cat.nameCat}}</td>
+                        <td >${{cat.recaudado}}</td>
+                        <td >{{cat.pAsistencias.toFixed(2)}}%</td>
                     </tr>
                     <tr>
                         <th class="bg-body-secondary" colspan="3">Past events statistics by category</th>
@@ -155,91 +98,12 @@
                         <th>Revenues</th>
                         <th>Percentage of attendance</th>
                     </tr>
-                    <tr >
-                        <td>                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
-                        <td>                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
-                        <td>                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
+                    <tr v-for="cat of pastCatStats">
+                        <td >{{cat.nameCat}}</td>
+                        <td >${{cat.recaudado}}</td>
+                        <td >{{cat.pAsistencias.toFixed(2)}}%</td>
                     </tr>
-                    <tr >
-                        <td>                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
-                        <td>                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
-                        <td>                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
-                    </tr>
-                    <tr >
-                        <td>                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
-                        <td>                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
-                        <td>                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
-                    </tr>
-                    <tr >
-                        <td>                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
-                        <td>                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
-                        <td>                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
-                    </tr>
-                    <tr >
-                        <td>                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
-                        <td>                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
-                        <td>                <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-danger" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div></td>
-                    </tr>
+
                 </tbody>
             </table>
         </div>
@@ -255,13 +119,11 @@
             <p>FE04-TN</p>
         </div>
     </footer>
-
+</div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
-
-        <script src="./assets/js/variables.js"></script>
-        <script src="./assets/js/functions.js"></script>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="./assets/js/stats.js"></script>
 
 </body>
