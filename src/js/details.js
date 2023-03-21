@@ -1,8 +1,5 @@
-const { createApp } = Vue
-
-
-
-const app = createApp({
+export default {
+    name: "detailsScript",
     data(){
         return {
             urlApi: 'https://mindhub-xj03.onrender.com/api/amazing',
@@ -20,8 +17,10 @@ const app = createApp({
     methods:{
         traerDatos(){
             const queryString = location.search; //creamos una constante con el search
+            console.log(queryString) 
             const params = new URLSearchParams(queryString); //creamos un objeto del tipo queryString
-            const id = params.get("id");//obtenemos el parametro ID que pasamos por el url    
+            console.log(params) 
+            const id = params.get("id");//obtenemos el parametro ID que pasamos por el url   
             fetch(this.urlApi)
                 .then(response => response.json())
                 .then(data => {
@@ -36,6 +35,4 @@ const app = createApp({
     },
     computed:{
     },
-})
-
-app.mount('#app')
+}

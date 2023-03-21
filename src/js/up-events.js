@@ -1,6 +1,6 @@
-const { createApp } = Vue
 
-const app = createApp({
+export default {
+    name: "upScript",
     data(){
         return {
             urlApi: 'https://mindhub-xj03.onrender.com/api/amazing',
@@ -28,7 +28,7 @@ const app = createApp({
                     for (let event of data.events) {
                         let eventDate = new Date(event.date);
                         let currentDate = new Date(data.currentDate);
-                        if (eventDate<currentDate) {
+                        if (eventDate>currentDate) {
                             this.eventos.push(event);
                             this.bkpEventos.push(event);
                             this.setCat(this.eventos)
@@ -56,6 +56,4 @@ const app = createApp({
             }
         }
     },
-})
-
-app.mount('#app')
+}

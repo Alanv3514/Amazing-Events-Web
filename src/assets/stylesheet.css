@@ -1,0 +1,95 @@
+.root{
+    --magenta: #CB3A87;
+    --color2:#F5E5FF;
+    --color3:#cf0368;
+    --button:    #bc0394;
+}
+
+/*  */
+.navbar-brand>img{
+    width: 25vh;
+}
+
+.bar2 img
+{
+    width: 32px;
+}
+/*  */
+
+
+
+/* FOOTER */
+.footer_icons>img{
+    width: 32px;
+}
+
+.card-body>div>a{
+    -webkit-box-shadow: -8px -6px 5px 0px rgba(0,0,0,0.18); 
+box-shadow: -8px -6px 5px 0px rgba(0,0,0,0.18);
+}
+
+footer>div>img {
+    width: 60px;
+    margin: 0 1px 0 1px;
+}
+
+footer>div>img:hover, .bar_button:hover {
+    transform: scale(1.2);
+    transition: transform 0.2s ease-in-out;
+}
+
+.active, h2, footer{
+    color: #cf0368 !important;
+}
+
+.btn{
+    background-color: #bc0394 !important;
+    border-color: #bc0394 !important;
+}
+
+
+.oculto{
+    display: none!important;
+    width: 0!important;;
+}
+
+
+
+@media (max-width:500px){
+    #cardD>.card>img{
+        height: 200px !important;
+    }
+    #cardD>.card>.card-body{
+        font-size: small;
+    }
+    #cardD>.card>.card-body>.footer-card{
+        font-size: small;
+        height: 100px !important;
+    }
+    .d-flex{
+        flex-direction: column;
+    }
+    main>div.p-5{
+        padding: 0px!important;
+    }
+}
+
+
+@media (max-width:768px){
+    #cardD>div{
+        -webkit-box-shadow: -8px -6px 5px 0px rgba(0,0,0,0.18)!important; 
+        box-shadow: -8px -6px 5px 0px rgba(0,0,0,0.18) !important;
+    }
+    .d-flex{
+        flex-direction: column;
+    }
+}
+
+@media (min-width:768px) {
+    .card>img{
+        -webkit-box-shadow: -8px -6px 5px 0px rgba(0,0,0,0.18); 
+    box-shadow: -8px -6px 5px 0px rgba(0,0,0,0.18);
+    }
+
+
+}

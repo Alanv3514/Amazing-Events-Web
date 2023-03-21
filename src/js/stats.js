@@ -1,6 +1,5 @@
-const { createApp } = Vue
-
-const app = createApp({
+export default {
+    name: "statsScript",
     data(){
         return {
             urlApi: 'https://mindhub-xj03.onrender.com/api/amazing',
@@ -76,11 +75,11 @@ const app = createApp({
         },
         assistancesLogic() {
             this.eventos.sort(function (a, b) { return b.pattendance - a.pattendance; })
-            for (i = 0; i < this.eventos.length / 4; i++) {
+            for (let i = 0; i < this.eventos.length / 4; i++) {
                 this.HAevent.push(this.eventos[i]);
             }
             this.eventos.sort(function (a, b) { return a.pattendance - b.pattendance; })
-            for (i = 0; i < this.eventos.length / 4; i++) {
+            for (let i = 0; i < this.eventos.length / 4; i++) {
                 this.LAevent.push(this.eventos[i]);
             }
             this.eventos.sort(function (a, b) { return b.capacity - a.capacity; });
@@ -89,6 +88,4 @@ const app = createApp({
     computed:{
 
     },
-})
-
-app.mount('#app')
+}
