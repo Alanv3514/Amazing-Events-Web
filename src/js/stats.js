@@ -1,8 +1,10 @@
+
 export default {
     name: "statsScript",
     data(){
         return {
             urlApi: 'https://mindhub-xj03.onrender.com/api/amazing',
+            test: dato,
             dato: [],
             eventos: [],
             bkpEventos: [],
@@ -28,10 +30,10 @@ export default {
                 .then(response => response.json())
                 .then(data => {
                     this.dato = data
-
-                    for (let event of data.events) {
+                    console.log(this.test);
+                    for (let event of this.dato.events) {
                         let eventDate = new Date(event.date);
-                        let currentDate = new Date(data.currentDate);
+                        let currentDate = new Date(this.dato.currentDate);
                         if (eventDate<currentDate) {
                             event.estimate = event.assistance;
                             event.pattendance = (event.assistance / event.capacity * 100);

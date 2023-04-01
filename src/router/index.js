@@ -6,32 +6,32 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'Home',
       component: Index
     },
     {
       path: '/upcoming-events',
-      name: 'upcoming-events',
+      name: 'Upcoming Events',
       component: () => import('../views/CuerpoUp.vue')
     },
     {
       path: '/past-events',
-      name: 'past-events',
+      name: 'Past Events',
       component: () => import('../views/CuerpoPast.vue')
     },
     {
       path: '/contact',
-      name: 'contact',
+      name: 'Contact',
       component: () => import('../views/Contact.vue')
     },
     {
       path: '/stats',
-      name: 'stats',
+      name: 'Stats',
       component: () => import('../views/Stats.vue')
     },
     {
     path: '/details',
-    name: 'details',
+    name: 'Details',
     component: () => import('../views/Details.vue')
   },
   ]

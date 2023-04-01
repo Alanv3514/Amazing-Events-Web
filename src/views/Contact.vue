@@ -1,6 +1,6 @@
-
+<script setup>import Cabecera from '@/components/Cabecera.vue'</script>
 <template>
-    
+                <Cabecera bckpage="./past-events" nxtpage="./stats"/>
         <form class="d-flex flex-column align-items-center pt-5 pb-5 pe-5 ps-2">
             <div class="mb-3">
                 <label for="InputName" class="form-label">Name: </label>

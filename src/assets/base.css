@@ -15,7 +15,9 @@
 }
 /*  */
 
-
+.router-link-active{
+    color: #cf0368 !important;
+}
 
 /* FOOTER */
 .footer_icons>img{

@@ -1,17 +1,37 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import Cabecera from './components/Cabecera.vue'
+import { RouterLink, RouterView, useRoute } from 'vue-router'
 import Pie from './components/Pie.vue'
+
+import { useallEventListStore } from './stores/allEventsStore'
+
+const store= useallEventListStore()
+
+
+let urlApi= 'https://mindhub-xj03.onrender.com/api/amazing';
+console.log("cargo setap wacho")
+fetch(urlApi)
+.then(response => response.json())
+.then(data => {
+                    
+                    store.currentDate = new Date(data.currentDate)
+                    data.events.forEach(event => {
+                      event.date = new Date(event.date);
+                      store.addEvent(event)
+                      store.setCat(event)
+                    }); 
+
+                    console.log("fecheado wacho")
+                    
+
+                })
+.catch(error => console.log(error.message))
+
+
 </script>
 
 <template>
-
- 
-      <Cabecera />
       <RouterView />
       <Pie />
-
-
 </template>
 
 <style scoped>

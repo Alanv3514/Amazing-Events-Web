@@ -15,7 +15,9 @@
     width: 32px;
 }
 /*  */
-
+.router-link-active{
+    color: #cf0368 !important;
+}
 
 
 /* FOOTER */

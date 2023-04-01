@@ -1,4 +1,33 @@
 <script setup>
+import { useRoute } from 'vue-router'
+import { storeToRefs } from 'pinia'
+import { useallEventListStore } from '../stores/allEventsStore.js';
+const store = useallEventListStore()
+const { currentDate, texto, bckEvents, categorias, allEvents, selectCategorias, apiEvents } = storeToRefs(store)
+
+const route = useRoute()
+
+const currentRouteName = route.name
+document.title = currentRouteName +' | Amazing Events'
+
+defineProps({
+    bckpage: String
+  ,
+nxtpage: String
+  ,}
+)
+
+if (currentRouteName.includes ("Home")) {
+    console.log("home")
+}
+else if(currentRouteName.includes ("Past")){
+    console.log("Past")
+}else if(currentRouteName.includes ("Upcoming")){
+    console.log("Upcoming")
+}else if(currentRouteName.includes ("Stats")){
+    console.log("Stats")
+}
+
 
 </script>
 
@@ -18,7 +47,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex gap-4 align-items-center justify-content-end w25">
                         <li class="nav-item">
-                            <router-link class="nav-link active" aria-current="page" to="/">Home</router-link>
+                            <router-link class="nav-link" to="/">Home</router-link>
                         </li>
                         <li class="nav-item">
                             <router-link class="nav-link" to="/upcoming-events">Upcoming Events</router-link>
@@ -39,15 +68,15 @@
         </nav>
     </div>
     <div class="bar2 d-flex flex-row justify-content-between border-bottom p-5 bg-body-tertiary">
-        <div class="bar_backbutton bar_button">
-                <img src="../assets/img/back.png" @click="$router.go(-1)" alt="Back">
-        </div>
+        <router-link :to="{path: bckpage}" class="bar_backbutton bar_button ">
+            <img src="../assets/img/back.png" alt="Back">
+        </router-link>
         <div class="bar_pageTitle">
-            <h2>Home</h2>
+            <h2>{{ $route.name }}</h2>
         </div>
-        <div class="bar_nextbutton bar_button">
-                <img src="../assets/img/next.png" @click="$router.go(+1)" alt="Next">
-        </div>
+        <router-link :to="{path: nxtpage}" class="bar_nextbutton bar_button ">
+            <img src="../assets/img/next.png" alt="next">
+        </router-link>
     </div>
 </template>
         

@@ -42,6 +42,10 @@ footer>div>img:hover, .bar_button:hover {
     color: #cf0368 !important;
 }
 
+.router-link-active{
+    color: #cf0368 !important;
+}
+
 .btn{
     background-color: #bc0394 !important;
     border-color: #bc0394 !important;
