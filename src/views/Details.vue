@@ -8,7 +8,7 @@
             const params = new URLSearchParams(queryString); //creamos un objeto del tipo queryString
             const id = params.get("id");//obtenemos el parametro ID que pasamos por el url   
             const evento = currentEvent.value
-
+            store.setCurrentEvent(id)
               //seleccionamos dentro de nuestro data el evento correspondiente al id que leimos en el url  
 
 </script>
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div class="d-flex w-100 gap-3 justify-content-between footer-card">
-                                <p class="fs-5 ">Price: $${{evento.price}}</p>
+                                <p class="fs-5 ">Price: ${{evento.price}}</p>
                                 <a href="javascript:history.back()" class="btn btn-primary fs-5">Back</a>
                     </div>
                 </div>

@@ -45,7 +45,7 @@ const filteredEvents = computed(() => {
                             <div class="d-flex w-75 gap-3 justify-content-between">
                                 <p>Price: ${{ event.price }}</p>
                                 <router-link :to="{ path: '/details', query: { id: event._id } }"
-                                    class="btn btn-primary ">Details</router-link>
+                                    class="btn btn-primary "  @click='store.setCurrentEvent(event._id)'>Details</router-link>
                             </div>
                         </div>
                     </div>

@@ -10,6 +10,9 @@ const route = useRoute()
 const currentRouteName = route.name
 document.title = currentRouteName +' | Amazing Events'
 
+
+
+
 defineProps({
     bckpage: String
   ,
@@ -17,16 +20,6 @@ nxtpage: String
   ,}
 )
 
-if (currentRouteName.includes ("Home")) {
-    console.log("home")
-}
-else if(currentRouteName.includes ("Past")){
-    console.log("Past")
-}else if(currentRouteName.includes ("Upcoming")){
-    console.log("Upcoming")
-}else if(currentRouteName.includes ("Stats")){
-    console.log("Stats")
-}
 
 
 </script>
