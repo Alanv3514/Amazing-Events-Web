@@ -1,10 +1,65 @@
 <script setup>
 import Cabecera from '@/components/Cabecera.vue' 
+import {computed} from 'vue'
 import { storeToRefs } from 'pinia';
 import { useallEventListStore } from '../stores/allEventsStore'
-import {statsScript} from '../js/stats'
-const stat = statsScript()
 const store= useallEventListStore()
+
+const { currentDate, allEvents} = storeToRefs(store)
+let eventos = allEvents.value
+let repetitions =5
+const pastEvents = computed(() => {
+    return eventos.filter(event => event.date<currentDate.value);
+})
+
+const futEvents = computed(() => {
+    return eventos.filter(event => event.date>currentDate.value);
+})
+
+    const pastCatStats = computed(() => {
+        let pastArray = []
+        pastEvents.value.forEach(event => {
+        event.estimate = event.assistance;
+        event.pattendance = (event.assistance / event.capacity * 100);
+        let MontoRecaudado = event.price * event.assistance;//calculo el monto recaudado por el evento
+        statsByCat(pastArray, event, MontoRecaudado, event.assistance, event.capacity, event.pattendance);
+    }); 
+        return pastArray                 
+})
+    const futCatStats = computed(() => {
+        let futArray = []
+        futEvents.value.forEach(event => {
+            event.assistance = event.estimate;
+            event.pattendance = (event.assistance / event.capacity * 100);
+            let MontoRecaudado = event.price * event.assistance;//calculo el monto recaudado por el evento
+            statsByCat(futArray, event, MontoRecaudado, event.assistance, event.capacity, event.pattendance);
+        
+        }); 
+        return futArray              
+})
+
+
+function statsByCat(eventArray,event, MontoRecaudado, Asistencias, Capacity, pattendance) {
+            var index = eventArray.findIndex((filteredEvent) =>{
+                return filteredEvent.nameCat === event.category;
+            });
+        
+            if (index == -1) {
+                eventArray.push({
+                    nameCat: event.category,
+                    recaudado: MontoRecaudado,
+                    asistencias: Asistencias,
+                    capacity: Capacity,
+                    pAsistencias: pattendance,
+                });
+            }
+            else {
+                eventArray[index].recaudado += MontoRecaudado;
+                eventArray[index].asistencias += Asistencias;
+                eventArray[index].capacity += Capacity;
+                eventArray[index].pAsistencias = (eventArray[index].asistencias/eventArray[index].capacity) *100;
+            }
+        }
 
 
 
@@ -25,7 +80,11 @@ const store= useallEventListStore()
                         <th>Events with the lowest percentage of attendance</th>
                         <th>Events with larger capacity</th>
                     </tr>
-
+                    <!-- <tr v-for="i in repetitions">
+                        <td >{{HAevent[i].name}} : {{HAevent[i].pattendance.toFixed(2)}}%</td>
+                        <td >{{LAevent[i].name}} : {{LAevent[i].pattendance.toFixed(2)}}%</td>
+                        <td >{{eventos[i].name}} : {{eventos[i].capacity}}</td>
+                    </tr> -->
                     <tr>
                         <th class="bg-body-secondary" colspan="3">Upcoming events statistics by category</th>
                     </tr>
