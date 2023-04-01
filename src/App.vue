@@ -18,6 +18,9 @@ fetch(urlApi)
                       event.date = new Date(event.date);
                       store.addEvent(event)
                       store.setCat(event)
+                      store.setPast(event)
+                      store.setFut(event)
+                      store.setAtEvents()
                     }); 
 
                     console.log("fecheado wacho")

@@ -6,7 +6,7 @@ import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router';
 const store = useallEventListStore()
 
-const { currentDate, texto, bckEvents, categorias, allEvents, selectCategorias, apiEvents } = storeToRefs(store)
+const { currentDate, texto, bckEvents, categorias, allEvents, selectCategorias } = storeToRefs(store)
 
 const futEvents = computed(() => {
     return allEvents.value.filter(event => event.date>currentDate.value);
@@ -16,10 +16,9 @@ const filteredEvents = computed(() => {
     store.filtroDoble(selectCategorias)
 })
 </script>
-         
-
-    <template>
+<template>
 {{ filteredEvents }}
+
 <Cabecera bckpage="./" nxtpage="./past-events"/>
 <nav class="navbar navbar-expand-lg bg-body-light pt-5 pb-5 pe-5 ps-2">
     <form class="d-flex container-fluid"  role="search" :@submit.prevent="filteredEvents">
