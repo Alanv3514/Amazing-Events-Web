@@ -1,0 +1,1 @@
+import{o as e,c,a,F as s,_ as t,b as n,d as _}from"./index-03a998ec.js";const f={__name:"Past",setup(o){return(r,m)=>(e(),c(s,null,[a(t,{bckpage:"./upcoming-events",nxtpage:"./contact"}),a(n),a(_)],64))}};export{f as default};
