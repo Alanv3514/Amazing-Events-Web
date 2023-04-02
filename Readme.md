@@ -1,4 +1,4 @@
-#Amazing Events
+# Amazing Events
 
 ### branch: Task 1 to Task4
 Webpage created with html, css, bootstrap and JS-vanilla
