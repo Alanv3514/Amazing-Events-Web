@@ -9,8 +9,8 @@ export const useallEventListStore = defineStore('allEventss', {
         currentDate: 0,
         texto: '',
         currentEvent: {},
-        pastEvents: [],
-        futEvents: [],
+        pastCatStats: [],
+        futCatStats: [],
         HAevent: [],
         LAevent: [],
         CAPevent: [],
@@ -31,22 +31,6 @@ export const useallEventListStore = defineStore('allEventss', {
                 this.categorias.push(event.category)
             }
         },
-        setFut(event) {
-            if (event.date > this.currentDate){                
-                event.assistance = event.estimate;
-                event.pattendance = (event.estimate / event.capacity * 100);
-                event.recaudado  = event.price * event.estimate;//calculo el monto recaudado por el evento
-                this.futEvents.push(event)
-            }
-            },
-        setPast(event) {
-            if (event.date < this.currentDate){
-                event.estimate = event.assistance;
-                event.pattendance = (event.assistance / event.capacity * 100);
-                event.recaudado = event.price * event.assistance;//calculo el monto recaudado por el evento
-                this.pastEvents.push(event)
-            }
-        },
         filtroDoble() {
             let primerFiltro = this.bckEvents.filter(evento => (evento.name.toLowerCase().includes(this.texto.toLowerCase()) || evento.description.toLowerCase().includes(this.texto.toLowerCase())))
             this.selectCategorias.length > 0 ?
@@ -57,12 +41,38 @@ export const useallEventListStore = defineStore('allEventss', {
             this.currentEvent = this.allEvents.find((event) => event._id === id)
         },
         setAtEvents() {
-            console.log("ordenando")
             this.HAevent.sort(function (a, b) { return b.pattendance - a.pattendance; })
             this.LAevent.sort(function (a, b) { return a.pattendance - b.pattendance; })
             this.CAPevent.sort(function (a, b) { return b.capacity - a.capacity; });
         },
+        setPFEvents(event) {
+            let asistencia = event.assistance ? event.assistance : event.estimate
+            event.recaudado = event.price * asistencia;//calculo el monto recaudado por el evento
+            event.pattendance = (asistencia / event.capacity * 100);
+            event.date > this.currentDate ?
+                this.statsByCat(this.futCatStats, event, asistencia) :
+                this.statsByCat(this.pastCatStats, event, asistencia)
 
+        },
+        statsByCat(eventArray, event, Asistencias) {
+            const catName = event.category;
+            const foundEvent = eventArray.find((filteredEvent) => filteredEvent.nameCat === catName);
+
+            if (!foundEvent) {
+                eventArray.push({
+                    nameCat: catName,
+                    recaudado: event.recaudado,
+                    asistencias: Asistencias,
+                    capacity: event.capacity,
+                    pAsistencias: event.pattendance,
+                });
+            } else {
+                foundEvent.recaudado += event.recaudado;
+                foundEvent.asistencias += Asistencias;
+                foundEvent.capacity += event.capacity;
+                foundEvent.pAsistencias = (foundEvent.asistencias / foundEvent.capacity) * 100;
+            }
+        }
 
     }
 })

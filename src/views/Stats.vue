@@ -5,72 +5,8 @@ import { storeToRefs } from 'pinia';
 import { useallEventListStore } from '../stores/allEventsStore'
 const store= useallEventListStore()
 
-const { currentDate, allEvents, HAevent, LAevent, CAPevent} = storeToRefs(store)
-let eventos = allEvents.value
+const { HAevent, LAevent, CAPevent, futCatStats, pastCatStats} = storeToRefs(store)
 let rep=10;
-
-
-
-
-
-const pastEvents = computed(() => {
-    return eventos.filter(event => event.date<currentDate.value);
-})
-
-const futEvents = computed(() => {
-    return eventos.filter(event => event.date>currentDate.value);
-})
-const pastCatStats = computed(() => {
-        let pastArray = []
-        pastEvents.value.forEach(event => {
-        event.estimate = event.assistance;
-        event.pattendance = (event.assistance / event.capacity * 100);
-        let MontoRecaudado = event.price * event.assistance;//calculo el monto recaudado por el evento
-        statsByCat(pastArray, event, MontoRecaudado, event.assistance, event.capacity, event.pattendance);
-    }); 
-        return pastArray                 
-})
-const futCatStats = computed(() => {
-        let futArray = []
-        futEvents.value.forEach(event => {
-            event.assistance = event.estimate;
-            event.pattendance = (event.assistance / event.capacity * 100);
-            let MontoRecaudado = event.price * event.assistance;//calculo el monto recaudado por el evento
-            statsByCat(futArray, event, MontoRecaudado, event.assistance, event.capacity, event.pattendance);
-        
-        }); 
-        return futArray              
-})
-
-
-function statsByCat(eventArray,event, MontoRecaudado, Asistencias, Capacity, pattendance) {
-            var index = eventArray.findIndex((filteredEvent) =>{
-                return filteredEvent.nameCat === event.category;
-            });
-        
-            if (index == -1) {
-                eventArray.push({
-                    nameCat: event.category,
-                    recaudado: MontoRecaudado,
-                    asistencias: Asistencias,
-                    capacity: Capacity,
-                    pAsistencias: pattendance,
-                });
-            }
-            else {
-                eventArray[index].recaudado += MontoRecaudado;
-                eventArray[index].asistencias += Asistencias;
-                eventArray[index].capacity += Capacity;
-                eventArray[index].pAsistencias = (eventArray[index].asistencias/eventArray[index].capacity) *100;
-            }
-        }
-        // let HAevent=allEvents;
-        // HAevent.sort(function (a, b) { return b.pattendance - a.pattendance; })
-        // let LAevent=allEvents;
-        // LAevent.sort(function (a, b) { return a.pattendance - b.pattendance; })
-        // let CAPevent=allEvents;
-        // CAPevent.sort(function (a, b) { return b.capacity - a.capacity; })
-        // console.log(HAevent);
 
 
 </script>

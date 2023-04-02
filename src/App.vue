@@ -6,9 +6,8 @@ import { useallEventListStore } from './stores/allEventsStore'
 
 const store= useallEventListStore()
 
-
 let urlApi= 'https://mindhub-xj03.onrender.com/api/amazing';
-console.log("cargo setap wacho")
+
 fetch(urlApi)
 .then(response => response.json())
 .then(data => {
@@ -18,14 +17,9 @@ fetch(urlApi)
                       event.date = new Date(event.date);
                       store.addEvent(event)
                       store.setCat(event)
-                      store.setPast(event)
-                      store.setFut(event)
                       store.setAtEvents()
+                      store.setPFEvents(event)
                     }); 
-
-                    console.log("fecheado wacho")
-                    
-
                 })
 .catch(error => console.log(error.message))
 
