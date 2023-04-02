@@ -2,10 +2,10 @@
 import Cabecera from '@/components/Cabecera.vue'
 import { useallEventListStore } from '../stores/allEventsStore.js';
 import { storeToRefs } from 'pinia'
-import { computed, ref, watch } from 'vue'
+import { computed} from 'vue'
 const store = useallEventListStore()
 
-const { texto, bckEvents, categorias, allEvents, selectCategorias } = storeToRefs(store)
+const { texto, categorias, allEvents, selectCategorias } = storeToRefs(store)
 
 const filteredEvents = computed(() => {
     store.filtroDoble(selectCategorias)

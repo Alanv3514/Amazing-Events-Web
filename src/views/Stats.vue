@@ -1,6 +1,5 @@
 <script setup>
 import Cabecera from '@/components/Cabecera.vue' 
-import {computed} from 'vue'
 import { storeToRefs } from 'pinia';
 import { useallEventListStore } from '../stores/allEventsStore'
 const store= useallEventListStore()

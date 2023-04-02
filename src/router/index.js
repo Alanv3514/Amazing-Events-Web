@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Index from '../views/Cuerpo.vue'
+import Index from '../views/Home.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,12 +12,12 @@ const router = createRouter({
     {
       path: '/upcoming-events',
       name: 'Upcoming Events',
-      component: () => import('../views/CuerpoUp.vue')
+      component: () => import('../views/Upcoming.vue')
     },
     {
       path: '/past-events',
       name: 'Past Events',
-      component: () => import('../views/CuerpoPast.vue')
+      component: () => import('../views/Past.vue')
     },
     {
       path: '/contact',

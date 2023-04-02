@@ -1,12 +1,11 @@
 <script setup>
 import Cabecera from '@/components/Cabecera.vue'
-import { useallEventListStore } from '../stores/allEventsStore.js';
+import { useallEventListStore } from '../stores/allEventsStore.js'
 import { storeToRefs } from 'pinia'
-import { computed, ref, watch } from 'vue'
-import { useRoute } from 'vue-router';
+import { computed} from 'vue'
 const store = useallEventListStore()
 
-const { currentDate, texto, bckEvents, categorias, allEvents, selectCategorias } = storeToRefs(store)
+const { currentDate, texto, categorias, allEvents, selectCategorias } = storeToRefs(store)
 
 const futEvents = computed(() => {
     return allEvents.value.filter(event => event.date>currentDate.value);
